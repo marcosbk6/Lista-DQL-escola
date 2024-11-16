@@ -9,6 +9,10 @@ CREATE TABLE alunos (
     data_matricula DATE NOT NULL
 );
 
+INSERT INTO alunos (nome, data_nascimento, status_matricula, data_matricula)
+VALUES ('João Silva', '1995-08-15', 'Ativo', '2023-02-10'),
+       ('Maria Oliveira', '2000-05-20', 'Concluído', '2021-08-15');
+
 -- 1
 SELECT *
 FROM alunos
@@ -19,6 +23,11 @@ CREATE TABLE professores (
     nome VARCHAR(255) NOT NULL,
     especialidade VARCHAR(255)
 );
+
+INSERT INTO professores (nome, especialidade)
+VALUES ('Carlos Pereira', 'Matemática'),
+       ('Fernanda Costa', 'Física');
+
 
 -- 2
 SELECT nome, especialidade
@@ -35,6 +44,11 @@ CREATE TABLE disciplinas (
     FOREIGN KEY (professor_id) REFERENCES professores(id)
 );
 
+INSERT INTO disciplinas (nome, carga_horaria, curso_id, professor_id)
+VALUES ('Algoritmos', 60, 1, 1),
+       ('Cálculo', 80, 2, 2);
+
+
 -- 3
 SELECT *
 FROM disciplinas
@@ -49,6 +63,11 @@ CREATE TABLE cursos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL
 );
+
+INSERT INTO cursos (nome)
+VALUES ('Engenharia de Software'),
+       ('Ciência da Computação');
+
 
 -- 5
 SELECT cursos.nome, SUM(disciplinas.carga_horaria) AS carga_horaria_total
@@ -65,6 +84,11 @@ CREATE TABLE turmas (
     FOREIGN KEY (professor_id) REFERENCES professores(id)
 );
 
+INSERT INTO turmas (horario, disciplina_id, professor_id)
+VALUES ('08:00 - 10:00', 1, 1),
+       ('10:00 - 12:00', 2, 2);
+
+
 -- 6
 SELECT professores.nome
 FROM professores
@@ -79,6 +103,12 @@ CREATE TABLE matriculas (
     FOREIGN KEY (aluno_id) REFERENCES alunos(id),
     FOREIGN KEY (disciplina_id) REFERENCES disciplinas(id)
 );
+
+INSERT INTO matriculas (aluno_id, disciplina_id)
+VALUES (1, 1),
+       (1, 2),
+       (2, 1);
+
 
 
 -- 7
